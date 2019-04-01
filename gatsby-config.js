@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Блог Иван Человеконенавистника`,
     author: `Иван Человеконенавистник`,
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    description: ``,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
       facebook:'https://facebook.com/ivan.chelovekonenavistnik'
@@ -74,6 +74,12 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
-    `gatsby-plugin-netlify-cms`
+    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        precision: 8,
+      },
+    },
   ],
 }

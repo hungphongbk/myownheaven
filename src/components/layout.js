@@ -1,75 +1,52 @@
 import React from "react"
-import { Link } from "gatsby"
+import Link from "gatsby-link"
 
 import { rhythm, scale } from "../utils/typography"
+import styles from "./layout.module.scss"
+import { graphql, StaticQuery } from "gatsby"
 
 class Layout extends React.Component {
-  render() {
-    const { location, title, children } = this.props
-    const rootPath = `${__PATH_PREFIX__}/`
-    let header
+  renderHeader = () => (
+    <StaticQuery
+      query={query}
+      render={data => {
+        const headerStyle = {
+          backgroundImage: `url(${data.banner.childImageSharp.fluid.srcWebp})`,
+        }
 
-    if (location.pathname === rootPath) {
-      header = (
-        <h1
-          style={{
-            ...scale(1.5),
-            marginBottom: rhythm(1.5),
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h1>
-      )
-    } else {
-      header = (
-        <h3
-          style={{
-            fontFamily: `Montserrat, sans-serif`,
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h3>
-      )
-    }
+        return (
+          <header style={headerStyle}>
+            <div className={styles.Container}>ahihi</div>
+          </header>
+        )
+      }}
+    />
+  )
+  render() {
+    // const { location, title, children } = this.props
+    // const rootPath = `${__PATH_PREFIX__}/`
+
     return (
-      <div
-        style={{
-          marginLeft: `auto`,
-          marginRight: `auto`,
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-        }}
-      >
-        <header>{header}</header>
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
+      <div className={styles.Layout}>
+        {this.renderHeader()}
+        <main>
+          <div className={styles.Container}>{this.props.children}</div>
+        </main>
       </div>
     )
   }
 }
+
+export const query = graphql`
+  query {
+    banner: file(absolutePath: { regex: "/banner.jpg/" }) {
+      childImageSharp {
+        fluid(maxWidth: 1920, quality: 90) {
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+  }
+`
 
 export default Layout
