@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Блог Иван Человеконенавистника`,
     author: `Иван Человеконенавистник`,
-    description: ``,
+    description: `Ведь ангелы тоже умирают...`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
       facebook:'https://facebook.com/ivan.chelovekonenavistnik'

@@ -2,6 +2,7 @@ import React from "react"
 import Link from "gatsby-link"
 
 import { rhythm, scale } from "../utils/typography"
+import "../sass/index.scss"
 import styles from "./layout.module.scss"
 import { graphql, StaticQuery } from "gatsby"
 
@@ -9,14 +10,17 @@ class Layout extends React.Component {
   renderHeader = () => (
     <StaticQuery
       query={query}
-      render={data => {
+      render={({banner, site}) => {
         const headerStyle = {
-          backgroundImage: `url(${data.banner.childImageSharp.fluid.srcWebp})`,
+          backgroundImage: `url(${banner.childImageSharp.fluid.srcWebp})`,
         }
 
         return (
           <header style={headerStyle}>
-            <div className={styles.Container}>ahihi</div>
+            <div className={styles.Container}>
+              <h1>{site.siteMetadata.author}</h1>
+              <h3><i>{site.siteMetadata.description}</i></h3>
+            </div>
           </header>
         )
       }}
@@ -30,7 +34,7 @@ class Layout extends React.Component {
       <div className={styles.Layout}>
         {this.renderHeader()}
         <main>
-          <div className={styles.Container}>{this.props.children}</div>
+          <div className={`${styles.Container} mt20`}>{this.props.children}</div>
         </main>
       </div>
     )
@@ -44,6 +48,12 @@ export const query = graphql`
         fluid(maxWidth: 1920, quality: 90) {
           ...GatsbyImageSharpFluid_withWebp
         }
+      }
+    }
+    site {
+      siteMetadata {
+        author
+        description
       }
     }
   }
