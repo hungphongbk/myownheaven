@@ -5,7 +5,7 @@ module.exports = {
     description: `Ведь ангелы тоже умирают...`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
-      facebook:'https://facebook.com/ivan.chelovekonenavistnik'
+      facebook: "https://facebook.com/ivan.chelovekonenavistnik",
     },
   },
   plugins: [
@@ -31,6 +31,16 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 590,
+            },
+          },
+          {
+            resolve: "gatsby-remark-embed-video",
+            options: {
+              width: 800,
+              ratio: 1.77, // Optional: Defaults to 16/9 = 1.77
+              height: 400, // Optional: Overrides optional.ratio
+              related: false, //Optional: Will remove related videos from the end of an embedded YouTube video.
+              noIframeBorder: true, //Optional: Disable insertion of <style> border: 0
             },
           },
           {
@@ -79,6 +89,15 @@ module.exports = {
       resolve: `gatsby-plugin-sass`,
       options: {
         precision: 8,
+      },
+    },
+    {
+      resolve: "gatsby-remark-embed-video",
+      options: {
+        width: 800,
+        ratio: 1.77, // Optional: Defaults to 16/9 = 1.77
+        related: false, //Optional: Will remove related videos from the end of an embedded YouTube video.
+        noIframeBorder: true, //Optional: Disable insertion of <style> border: 0
       },
     },
   ],

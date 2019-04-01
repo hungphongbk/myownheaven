@@ -15,6 +15,9 @@ kirkhamTheme.overrideThemeStyles = ({ rhythm }, options) => ({
     color: "#1e1e1e",
     textDecoration: "none",
   },
+  blockquote: {
+    fontSize: "inherit",
+  },
 })
 
 const typography = new Typography(kirkhamTheme)
