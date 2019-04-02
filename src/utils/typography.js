@@ -1,7 +1,7 @@
 import Typography from "typography"
 import kirkhamTheme from "typography-theme-kirkham"
 
-kirkhamTheme.baseFontSize = "15px"
+kirkhamTheme.baseFontSize = "15.6px"
 kirkhamTheme.baseLineHeight = 1.64
 kirkhamTheme.googleFonts = [
   { name: "Vollkorn SC", styles: ["400"] },
@@ -19,6 +19,9 @@ kirkhamTheme.overrideThemeStyles = ({ rhythm }, options) => ({
   },
   blockquote: {
     fontSize: "inherit",
+  },
+  "h1,h2,h3,h4,h5,h6": {
+    color: "#fff",
   },
 })
 
