@@ -10,10 +10,24 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, keywords, title }) {
-  const { site } = useStaticQuery(
+function makeMetaSpecs(prefix, specs) {
+  return specs.map(([field, value, defaultValue]) => ({
+    name: prefix + ":" + field,
+    content: value || defaultValue,
+  }))
+}
+
+function SEO({ description, lang, meta, keywords, title, type, image }) {
+  const { site, icon } = useStaticQuery(
     graphql`
       query {
+        icon: file(absolutePath: { regex: "/icon.png/" }) {
+          childImageSharp {
+            fixed {
+              ...GatsbyImageSharpFixed_withWebp
+            }
+          }
+        }
         site {
           siteMetadata {
             title
@@ -25,7 +39,9 @@ function SEO({ description, lang, meta, keywords, title }) {
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
+  let metaDescription = description || site.siteMetadata.description,
+    _image = (image || icon).childImageSharp
+  _image = (_image.fixed || _image.fluid).srcWebp
 
   return (
     <Helmet
@@ -39,34 +55,13 @@ function SEO({ description, lang, meta, keywords, title }) {
           name: `description`,
           content: metaDescription,
         },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
+        ...makeMetaSpecs("og", [
+          ["title", title],
+          ["description", metaDescription],
+          ["type", type],
+          ["image", _image],
+          ["image:alt", metaDescription],
+        ]),
       ]
         .concat(
           keywords.length > 0
@@ -86,6 +81,7 @@ SEO.defaultProps = {
   meta: [],
   keywords: [],
   description: ``,
+  type: `website`,
 }
 
 SEO.propTypes = {
@@ -94,6 +90,7 @@ SEO.propTypes = {
   meta: PropTypes.arrayOf(PropTypes.object),
   keywords: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["website", "article"]),
 }
 
 export default SEO

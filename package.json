@@ -41,7 +41,8 @@
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.54",
     "typography": "^0.16.19",
-    "typography-theme-kirkham": "^0.16.19"
+    "typography-theme-kirkham": "^0.16.19",
+    "prop-types": "latest"
   },
   "devDependencies": {
     "gh-pages": "^2.0.1",
@@ -58,7 +59,7 @@
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
   "scripts": {
-    "build": "gatsby clean && gatsby build && echo 'myownheaven.com' >> public/CNAME && gh-pages -d public",
+    "build": "gatsby build && echo 'myownheaven.com' > public/CNAME && gh-pages -d public",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
