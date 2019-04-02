@@ -1,15 +1,24 @@
-@mixin resp-min-desktop-sm(){
-  @media only screen and (min-width: 992px){
-    @content
+$gutter: 1rem;
+
+@mixin resp-min-desktop-sm() {
+  @media only screen and (min-width: 992px) {
+    @content;
   }
 }
-@mixin resp-min-desktop-md(){
-  @media only screen and (min-width: 1200px){
-    @content
+@mixin resp-min-desktop-md() {
+  @media only screen and (min-width: 1200px) {
+    @content;
   }
 }
-@mixin resp-min-desktop-lg(){
-  @media only screen and (min-width: 1400px){
-    @content
+@mixin resp-min-desktop-lg() {
+  @media only screen and (min-width: 1400px) {
+    @content;
+  }
+}
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
   }
 }

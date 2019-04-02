@@ -66,6 +66,9 @@ header.WithBlogHeader {
 .BlogPostHeader {
   composes: mb25 from global;
   @extend %whiteText;
+  h1{
+    font-size: 2.65rem;
+  }
 }
 .HasBlogPost {
   .BlogPostHeader,

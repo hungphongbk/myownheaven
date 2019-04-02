@@ -1,0 +1,11 @@
+@import "../sass/mixins";
+
+.BlogContentWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -$gutter;
+}
+.BlogContent {
+  flex: 0 0 percentage(2/3);
+  padding: $gutter/2;
+}

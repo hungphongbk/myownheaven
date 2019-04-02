@@ -30,7 +30,7 @@ const BlogHeader = ({ blog = null }) => (
                 <h1>{blog.frontmatter.title}</h1>
                 <p
                   style={{
-                    ...scale(-1 / 5),
+                    ...scale(-1 / 12),
                     display: `block`,
                     marginBottom: rhythm(0.15),
                     marginTop: rhythm(0),

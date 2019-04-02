@@ -1,3 +1,6 @@
+@import "~susy/sass/susy";
+//@import "mixins";
+
 $spaceamounts: (0, 5, 10, 15, 20, 25, 30, 35, 40);
 $sides: (
   "": "all",
@@ -17,4 +20,9 @@ $sides: (
       padding#{$property}: #{$space}px;
     }
   }
+}
+
+blockquote {
+  color: inherit;
+  border-left-color: rgba(#fff, 0.65);
 }
