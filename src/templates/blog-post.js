@@ -17,7 +17,10 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        <div className={'mt20'} dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div
+          className={"mt20"}
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
         <hr
           style={{
             marginBottom: rhythm(1),
