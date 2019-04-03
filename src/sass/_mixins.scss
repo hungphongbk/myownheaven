@@ -1,5 +1,15 @@
 $gutter: 1rem;
 
+@mixin resp-min-desktop-xs() {
+  @media only screen and (min-width: 320px) {
+    @content;
+  }
+}
+@mixin resp-max-desktop-xs() {
+  @media only screen and (max-width: 991px) {
+    @content;
+  }
+}
 @mixin resp-min-desktop-sm() {
   @media only screen and (min-width: 992px) {
     @content;

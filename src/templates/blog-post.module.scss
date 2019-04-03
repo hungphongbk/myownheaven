@@ -4,8 +4,19 @@
   display: flex;
   flex-wrap: wrap;
   margin: 0 -$gutter;
+  @include resp-max-desktop-xs {
+    margin: 0;
+  }
 }
 .BlogContent {
-  flex: 0 0 percentage(2/3);
+  @include resp-min-desktop-sm {
+    flex: 0 0 percentage(2/3);
+  }
+  padding: $gutter/2;
+}
+.BlogSidebar {
+  @include resp-min-desktop-sm {
+    flex: 0 0 percentage(1/3);
+  }
   padding: $gutter/2;
 }

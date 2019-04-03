@@ -56,6 +56,7 @@ class BlogPostTemplate extends React.Component {
               </li>
             </ul>
           </div>
+          <div className={styles.BlogSidebar} />
         </div>
       </Layout>
     )
