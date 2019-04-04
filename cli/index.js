@@ -1,15 +1,11 @@
 import sync from "./sync"
+import create from "./create"
 
 const commands = {
   sync,
+  create,
 }
 
-require("yargs").command(
-  "run [command]",
-  "",
-  () => {},
-  argv => {
-    console.log(argv)
-    commands[argv.command](argv).then(() => process.exit(0))
-  }
-)
+const argv = require("yargs").command("run [cmd]").argv
+
+commands[argv.cmd](argv).then(() => process.exit(0))
