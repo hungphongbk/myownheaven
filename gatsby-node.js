@@ -1,5 +1,6 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
+const categories = require("./src/data/categories.json")
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -19,6 +20,7 @@ exports.createPages = ({ graphql, actions }) => {
               }
               frontmatter {
                 title
+                category
               }
             }
           }
@@ -36,15 +38,20 @@ exports.createPages = ({ graphql, actions }) => {
     posts.forEach((post, index) => {
       const previous = index === posts.length - 1 ? null : posts[index + 1].node
       const next = index === 0 ? null : posts[index - 1].node
+      const context = {
+        slug: post.node.fields.slug,
+        previous,
+        next,
+      }
+      if (post.node.frontmatter.category)
+        context.category = categories.find(
+          cat => cat.slug + "" === post.node.frontmatter.category + ""
+        )
 
       createPage({
         path: post.node.fields.slug,
         component: blogPost,
-        context: {
-          slug: post.node.fields.slug,
-          previous,
-          next,
-        },
+        context,
       })
     })
 

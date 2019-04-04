@@ -38,6 +38,12 @@ const BlogHeader = ({ blog = null }) => (
                   }}
                 >
                   {blog.frontmatter.date} by {site.siteMetadata.author}
+                  {blog.category && (
+                    <>
+                      &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                      <strong>{blog.category.title.toUpperCase()}</strong>
+                    </>
+                  )}
                 </p>
               </div>
             )}

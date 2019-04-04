@@ -8,9 +8,13 @@ import styles from "./blog-post.module.scss"
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = this.props.data.markdownRemark
+    const { previous, next, category = null } = this.props.pageContext
+    const post = Object.assign(
+      {},
+      this.props.data.markdownRemark,
+      category && { category }
+    )
     const siteTitle = this.props.data.site.siteMetadata.title
-    const { previous, next } = this.props.pageContext
 
     return (
       <Layout location={this.props.location} title={siteTitle} blog={post}>
