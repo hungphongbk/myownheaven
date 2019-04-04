@@ -41,6 +41,7 @@ function SEO({ description, lang, meta, keywords, title, type, image }) {
 
   let metaDescription = description || site.siteMetadata.description,
     _image = (image || icon).childImageSharp
+
   _image = (_image.fixed || _image.fluid).srcWebp
 
   return (

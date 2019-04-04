@@ -18,6 +18,7 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           type={"article"}
           description={post.frontmatter.description || post.excerpt}
+          image={post.frontmatter.image}
         />
         <div className={styles.BlogContentWrapper}>
           <div className={styles.BlogContent}>
@@ -81,6 +82,16 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        image {
+          childImageSharp {
+            resize(width: 1500, height: 1500) {
+              src
+            }
+            fluid(maxWidth: 786) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
       }
     }
   }

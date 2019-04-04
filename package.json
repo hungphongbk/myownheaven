@@ -44,8 +44,13 @@
     "typography-theme-kirkham": "^0.16.19"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.4.3",
     "gh-pages": "^2.0.1",
-    "prettier": "^1.16.4"
+    "mustache": "^3.0.1",
+    "prettier": "^1.16.4",
+    "prompts": "^2.0.4",
+    "reverse-mustache": "^1.9.0",
+    "yargs": "^13.2.2"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
   "keywords": [
@@ -63,6 +68,7 @@
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+    "cli": "babel-node --presets @babel/preset-env ./cli/index.js run"
   }
 }
