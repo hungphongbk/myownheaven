@@ -102,5 +102,6 @@ module.exports = {
         noIframeBorder: true, //Optional: Disable insertion of <style> border: 0
       },
     },
+    `gatsby-plugin-styled-components`
   ],
 }

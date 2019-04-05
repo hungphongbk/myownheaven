@@ -4,18 +4,32 @@ import Link from "gatsby-link"
 import { graphql, StaticQuery } from "gatsby"
 import classnames from "classnames"
 import { rhythm, scale } from "../../utils/typography"
+import styled from "styled-components"
+
+const responsives = srcSet =>
+    srcSet
+      .split(",")
+      .map((src, index) => {
+        let [url, w] = src.trim().split(" "),
+          rs = `background-image: url(${url});`
+        if (index > 0)
+          rs = `@media (min-width: ${w.replace(/w/, "px")}){
+        ${rs}
+      }`
+        return rs
+      })
+      .join(""),
+  Header = styled.header`
+    ${props => responsives(props.srcSet)}
+  `
 
 const BlogHeader = ({ blog = null }) => (
   <StaticQuery
     query={query}
     render={({ banner, site }) => {
-      const headerStyle = {
-        backgroundImage: `url(${banner.childImageSharp.fluid.srcWebp})`,
-      }
-
       return (
-        <header
-          style={headerStyle}
+        <Header
+          srcSet={banner.childImageSharp.fluid.srcSetWebp}
           className={classnames(blog && styles.WithBlogHeader)}
         >
           <div className={styles.Container} style={{ height: "100%" }}>
@@ -48,7 +62,7 @@ const BlogHeader = ({ blog = null }) => (
               </div>
             )}
           </div>
-        </header>
+        </Header>
       )
     }}
   />

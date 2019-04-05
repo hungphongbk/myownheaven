@@ -15,7 +15,7 @@ export function makeMetaSpecs(prefix, specs) {
   return specs
     .filter(spec => Array.isArray(spec) && spec.length >= 2)
     .map(([field, value, defaultValue]) => ({
-      name: prefix + ":" + field,
+      property: prefix + ":" + field,
       content: value || defaultValue,
     }))
 }
