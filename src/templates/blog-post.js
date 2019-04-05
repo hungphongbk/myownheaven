@@ -2,7 +2,7 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import SEO, { makeMetaSpecs } from "../components/seo"
 import { rhythm } from "../utils/typography"
 import styles from "./blog-post.module.scss"
 
@@ -14,7 +14,7 @@ class BlogPostTemplate extends React.Component {
       this.props.data.markdownRemark,
       category && { category }
     )
-    const siteTitle = this.props.data.site.siteMetadata.title
+    const { siteTitle, social } = this.props.data.site.siteMetadata
 
     return (
       <Layout location={this.props.location} title={siteTitle} blog={post}>
@@ -23,6 +23,11 @@ class BlogPostTemplate extends React.Component {
           type={"article"}
           description={post.frontmatter.description || post.excerpt}
           image={post.frontmatter.image}
+          otherMeta={makeMetaSpecs("article", [
+            ["author", social.facebook],
+            ["published_time", post.frontmatter.date],
+            ["section", post.category.title]
+          ])}
         />
         <div className={styles.BlogContentWrapper}>
           <div className={styles.BlogContent}>
@@ -76,6 +81,9 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         author
+        social {
+          facebook
+        }
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {

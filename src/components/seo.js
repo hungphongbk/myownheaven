@@ -9,16 +9,29 @@ import React from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+import { Location } from "@reach/router"
 
-function makeMetaSpecs(prefix, specs) {
+export function makeMetaSpecs(prefix, specs) {
   return specs.map(([field, value, defaultValue]) => ({
     name: prefix + ":" + field,
     content: value || defaultValue,
   }))
 }
 
-function SEO({ description, lang, meta, keywords, title, type, image }) {
-  const { site, icon } = useStaticQuery(
+function SEO({
+  description,
+  lang,
+  meta,
+  keywords,
+  title,
+  type,
+  image,
+  otherMeta,
+}) {
+  const {
+    site: { siteMetadata },
+    icon,
+  } = useStaticQuery(
     graphql`
       query {
         icon: file(absolutePath: { regex: "/icon.png/" }) {
@@ -33,47 +46,56 @@ function SEO({ description, lang, meta, keywords, title, type, image }) {
             title
             description
             author
+            social {
+              facebook
+            }
           }
         }
       }
     `
   )
 
-  let metaDescription = description || site.siteMetadata.description,
+  let metaDescription = description || siteMetadata.description,
     _image = (image || icon).childImageSharp
 
   _image = (_image.fixed || _image.fluid).srcWebp
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        ...makeMetaSpecs("og", [
-          ["title", title],
-          ["description", metaDescription],
-          ["type", type],
-          ["image", _image],
-          ["image:alt", metaDescription],
-        ]),
-      ]
-        .concat(
-          keywords.length > 0
-            ? {
-                name: `keywords`,
-                content: keywords.join(`, `),
-              }
-            : []
-        )
-        .concat(meta)}
-    />
+    <Location>
+      {({ location }) => (
+        <Helmet
+          htmlAttributes={{
+            lang,
+          }}
+          title={title}
+          titleTemplate={`%s | ${siteMetadata.title}`}
+          meta={[
+            {
+              name: `description`,
+              content: metaDescription,
+            },
+            ...makeMetaSpecs("og", [
+              ["url", location.href],
+              ["title", title],
+              ["description", metaDescription],
+              ["type", type],
+              ["image", _image],
+              ["image:alt", metaDescription],
+            ]),
+            ...otherMeta,
+          ]
+            .concat(
+              keywords.length > 0
+                ? {
+                    name: `keywords`,
+                    content: keywords.join(`, `),
+                  }
+                : []
+            )
+            .concat(meta)}
+        />
+      )}
+    </Location>
   )
 }
 
@@ -83,6 +105,7 @@ SEO.defaultProps = {
   keywords: [],
   description: ``,
   type: `website`,
+  otherMeta: [],
 }
 
 SEO.propTypes = {
@@ -92,6 +115,12 @@ SEO.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string.isRequired,
   type: PropTypes.oneOf(["website", "article"]),
+  otherMeta: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+    })
+  ),
 }
 
 export default SEO
