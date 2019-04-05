@@ -1,17 +1,17 @@
 $gutter: 1rem;
 
-@mixin resp-min-desktop-xs() {
+@mixin resp-min-phone() {
   @media only screen and (min-width: 320px) {
     @content;
   }
 }
-@mixin resp-max-desktop-xs() {
-  @media only screen and (max-width: 991px) {
+@mixin resp-max-phone() {
+  @media only screen and (max-width: 767px) {
     @content;
   }
 }
 @mixin resp-min-desktop-sm() {
-  @media only screen and (min-width: 992px) {
+  @media only screen and (min-width: 768px) {
     @content;
   }
 }
