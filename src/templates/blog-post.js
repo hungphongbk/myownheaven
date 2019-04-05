@@ -26,7 +26,7 @@ class BlogPostTemplate extends React.Component {
           otherMeta={makeMetaSpecs("article", [
             ["author", social.facebook],
             ["published_time", post.frontmatter.date],
-            ["section", post.category.title]
+            post.category && ["section", post.category.title],
           ])}
         />
         <div className={styles.BlogContentWrapper}>

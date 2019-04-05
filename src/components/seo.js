@@ -12,10 +12,12 @@ import { useStaticQuery, graphql } from "gatsby"
 import { Location } from "@reach/router"
 
 export function makeMetaSpecs(prefix, specs) {
-  return specs.map(([field, value, defaultValue]) => ({
-    name: prefix + ":" + field,
-    content: value || defaultValue,
-  }))
+  return specs
+    .filter(spec => Array.isArray(spec) && spec.length >= 2)
+    .map(([field, value, defaultValue]) => ({
+      name: prefix + ":" + field,
+      content: value || defaultValue,
+    }))
 }
 
 function SEO({
@@ -43,6 +45,7 @@ function SEO({
         }
         site {
           siteMetadata {
+            url
             title
             description
             author
@@ -75,7 +78,7 @@ function SEO({
               content: metaDescription,
             },
             ...makeMetaSpecs("og", [
-              ["url", location.href],
+              ["url", siteMetadata.url + location.pathname],
               ["title", title],
               ["description", metaDescription],
               ["type", type],

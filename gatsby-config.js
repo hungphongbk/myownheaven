@@ -1,5 +1,6 @@
 module.exports = {
   siteMetadata: {
+    url: "https://myownheaven.com",
     title: `Блог Иван Человеконенавистника`,
     author: `Иван Человеконенавистник`,
     description: `Ведь ангелы тоже умирают...`,
