@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import { postGridGutter } from "../../utils/consts"
 
-const Wrapper = styled.div`
+const Wrapper = styled.article`
   position: relative;
   padding: ${postGridGutter * 1.3}rem ${postGridGutter}rem
     ${postGridGutter * 3}rem;
