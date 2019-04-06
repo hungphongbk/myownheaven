@@ -5,6 +5,19 @@ import Layout from "../components/layout"
 import SEO, { makeMetaSpecs } from "../components/seo"
 import { rhythm } from "../utils/typography"
 import styles from "./blog-post.module.scss"
+import RehypeReact from "rehype-react"
+import {
+  LyricTranslator,
+  LyricTranslatorPanel,
+} from "../components/LyricTranslator"
+
+const renderAst = new RehypeReact({
+  createElement: React.createElement,
+  components: {
+    "lyric-translator": LyricTranslator,
+    "lyric-translator-panel": LyricTranslatorPanel,
+  },
+}).Compiler
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -15,6 +28,7 @@ class BlogPostTemplate extends React.Component {
       category && { category }
     )
     const { siteTitle, social } = this.props.data.site.siteMetadata
+    console.log(post.htmlAst)
 
     return (
       <Layout location={this.props.location} title={siteTitle} blog={post}>
@@ -31,10 +45,7 @@ class BlogPostTemplate extends React.Component {
         />
         <div className={styles.BlogContentWrapper}>
           <div className={styles.BlogContent}>
-            <div
-              className={"mt20"}
-              dangerouslySetInnerHTML={{ __html: post.html }}
-            />
+            <div className={"mt20"}>{renderAst(post.htmlAst)}</div>
             <hr
               style={{
                 marginBottom: rhythm(1),
@@ -88,8 +99,9 @@ export const pageQuery = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      excerpt(pruneLength: 160)
+      excerpt(pruneLength: 240)
       html
+      htmlAst
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
