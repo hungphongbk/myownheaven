@@ -48,6 +48,18 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            image {
+              childImageSharp {
+                resize(
+                  width: 200
+                  height: 200
+                  toFormat: WEBP
+                  grayscale: true
+                ) {
+                  src
+                }
+              }
+            }
           }
         }
       }

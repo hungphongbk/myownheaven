@@ -28,7 +28,6 @@ class BlogPostTemplate extends React.Component {
       category && { category }
     )
     const { siteTitle, social } = this.props.data.site.siteMetadata
-    console.log(post.htmlAst)
 
     return (
       <Layout location={this.props.location} title={siteTitle} blog={post}>

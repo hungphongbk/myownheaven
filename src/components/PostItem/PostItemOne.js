@@ -2,15 +2,25 @@ import React from "react"
 import { rhythm } from "../../utils/typography"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import { postGridGutter } from "../../utils/consts"
+import {
+  postGridGutter,
+  postGridGutterLarger,
+  postGridGutterSmaller,
+} from "../../utils/consts"
+import styles from "./PostItemOne.module.scss"
 
 const Wrapper = styled.article`
   position: relative;
-  padding: ${postGridGutter * 1.3}rem ${postGridGutter}rem
+  padding: ${postGridGutterLarger}rem ${postGridGutter}rem
     ${postGridGutter * 3}rem;
   border-radius: ${(postGridGutter * 2) / 3}rem;
   &:hover {
     background-color: #2d2d2d;
+  }
+  h3 {
+    display: inline-block;
+    margin-top: ${postGridGutterSmaller}rem;
+    margin-bottom: ${postGridGutterLarger}rem;
   }
 `
 
@@ -19,21 +29,25 @@ const PostItemOne = ({ post: node }) => {
   return (
     <Wrapper>
       <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-        <h3
-          style={{
-            marginBottom: rhythm(1 / 4),
-          }}
-        >
-          {title}
-        </h3>
+        <h3>{title}</h3>
       </Link>
 
-      <small>{node.frontmatter.date}</small>
-      <p
-        dangerouslySetInnerHTML={{
-          __html: node.frontmatter.description || node.excerpt,
-        }}
-      />
+      <div className={styles.Wrapper}>
+        {node.frontmatter.image && (
+          <img
+            src={node.frontmatter.image.childImageSharp.resize.src}
+            alt={node.frontmatter.description || node.frontmatter.title}
+          />
+        )}
+        <div>
+          <small>{node.frontmatter.date}</small>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: node.frontmatter.description || node.excerpt,
+            }}
+          />
+        </div>
+      </div>
     </Wrapper>
   )
 }

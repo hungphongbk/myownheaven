@@ -1,7 +1,7 @@
 import Typography from "typography"
 import kirkhamTheme from "typography-theme-kirkham"
 
-kirkhamTheme.baseFontSize = "15.6px"
+kirkhamTheme.baseFontSize = "16.2px"
 kirkhamTheme.baseLineHeight = 1.64
 kirkhamTheme.googleFonts = [
   { name: "Vollkorn SC", styles: ["400"] },

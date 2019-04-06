@@ -21,6 +21,7 @@ exports.createPages = ({ graphql, actions }) => {
               frontmatter {
                 title
                 category
+                draft
               }
             }
           }
@@ -48,11 +49,16 @@ exports.createPages = ({ graphql, actions }) => {
           cat => cat.slug + "" === post.node.frontmatter.category + ""
         )
 
-      createPage({
-        path: post.node.fields.slug,
-        component: blogPost,
-        context,
-      })
+      let hide =
+        process.env.NODE_ENV !== "development" &&
+        post.node.frontmatter.draft &&
+        post.node.frontmatter.draft === true
+      if (!hide)
+        createPage({
+          path: post.node.fields.slug,
+          component: blogPost,
+          context,
+        })
     })
 
     return null
