@@ -29,7 +29,7 @@ const BlogHeader = ({ blog = null }) => (
     render={({ banner, site }) => {
       return (
         <Header
-          srcSet={banner.childImageSharp.fluid.srcSetWebp}
+          srcSet={banner.childImageSharp.fluid.srcSet}
           className={classnames(blog && styles.WithBlogHeader)}
         >
           <div className={styles.Container} style={{ height: "100%" }}>
@@ -73,7 +73,7 @@ const query = graphql`
     banner: file(absolutePath: { regex: "/banner.jpg/" }) {
       childImageSharp {
         fluid(maxWidth: 1920, quality: 90) {
-          ...GatsbyImageSharpFluid_withWebp
+          srcSet
         }
       }
     }

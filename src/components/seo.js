@@ -39,7 +39,7 @@ function SEO({
         icon: file(absolutePath: { regex: "/icon.png/" }) {
           childImageSharp {
             fixed {
-              ...GatsbyImageSharpFixed_withWebp
+              src
             }
           }
         }
@@ -61,7 +61,7 @@ function SEO({
   let metaDescription = description || siteMetadata.description,
     _image = (image || icon).childImageSharp
 
-  _image = (_image.fixed || _image.fluid).srcWebp
+  _image = (_image.fixed || _image.fluid).src
 
   return (
     <Location>

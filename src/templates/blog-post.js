@@ -43,7 +43,7 @@ class BlogPostTemplate extends React.Component {
           ])}
         />
         <div className={styles.BlogContentWrapper}>
-          <div className={styles.BlogContent}>
+          <article className={styles.BlogContent}>
             <div className={"mt20"}>{renderAst(post.htmlAst)}</div>
             <hr
               style={{
@@ -75,8 +75,8 @@ class BlogPostTemplate extends React.Component {
                 )}
               </li>
             </ul>
-          </div>
-          <div className={styles.BlogSidebar} />
+          </article>
+          <aside className={styles.BlogSidebar} />
         </div>
       </Layout>
     )
@@ -107,11 +107,8 @@ export const pageQuery = graphql`
         description
         image {
           childImageSharp {
-            resize(width: 1500, height: 1500) {
+            fixed(width: 400, height: 400) {
               src
-            }
-            fluid(maxWidth: 786) {
-              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }
